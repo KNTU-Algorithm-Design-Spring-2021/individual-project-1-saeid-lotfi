@@ -12,15 +12,15 @@ dataset = dataset[index]
 #min_max function
 #take a list and return its min and max
 def min_max(given_list):
-    min_list = given_list[0]
-    max_list = given_list[0]
-    for i in range(1, len(given_list)):
-        if given_list[i] < min_list:
-            min_list = given_list[i]
-        elif given_list[i] > max_list:
-            max_list = given_list[i]
-            
-    return min_list, max_list
+    if len(given_list) <= 1:
+        return (given_list[0], given_list[0])
+    elif len(given_list) == 2:
+        return (min(given_list), max(given_list))
+    else:
+        mid = len(given_list) // 2
+        min_l, max_l = min_max(given_list[:mid])
+        min_r, max_r = min_max(given_list[mid:])
+        return (min(min_l, min_r), max(max_l, max_r))
 
 #performing min_max function on both features
 #from generated dataset
