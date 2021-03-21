@@ -11,16 +11,33 @@ dataset = dataset[index]
 
 #min_max function
 #take a list and return its min and max
+#min_max function
+#take a list and return its min and max
 def min_max(given_list):
-    if len(given_list) <= 1:
-        return (given_list[0], given_list[0])
-    elif len(given_list) == 2:
-        return (min(given_list), max(given_list))
+    min_list = []
+    max_list = []
+    #if length of array is even
+    if len(given_list) % 2 == 0:
+        for i in range(0, len(given_list), 2):
+            if given_list[i] <= given_list[i + 1]:
+                min_list.append(given_list[i])
+                max_list.append(given_list[i + 1])
+            else:
+                max_list.append(given_list[i])
+                min_list.append(given_list[i + 1])
+    #if length of array is odd
     else:
-        mid = len(given_list) // 2
-        min_l, max_l = min_max(given_list[:mid])
-        min_r, max_r = min_max(given_list[mid:])
-        return (min(min_l, min_r), max(max_l, max_r))
+        for i in range(0, len(given_list) - 1, 2):
+            if given_list[i] <= given_list[i + 1]:
+                min_list.append(given_list[i])
+                max_list.append(given_list[i + 1])
+            else:
+                max_list.append(given_list[i])
+                min_list.append(given_list[i + 1])
+            #adding last element in both list
+            min_list.append(given_list[-1])
+            max_list.append(given_list[-1])
+    return (min(min_list), max(max_list))
 
 #performing min_max function on both features
 #from generated dataset
@@ -35,4 +52,4 @@ ax.set_xlim([-5, 5])
 ax.set_ylim([-5, 5])
 ax.scatter(dataset[:,0], dataset[:,1], s= 5, c= 'r')
 ax.add_patch(Rectangle((hor_min, ver_min), hor_max - hor_min, ver_max - ver_min,
-                       edgecolor = 'g', fill= False, lw= 2))
+                       edgecolor = 'g', fill= False, lw= 1))
